@@ -1,5 +1,9 @@
 @if (isAddingTask()) {
-  <app-new-task />
+  <app-new-task
+    [userId]="selectedUserId()!"
+    (onCloseNewTaskModal)="onCloseAddModal()"
+    (onCreateNewTask)="onCreateNewTask($event)"
+  />
 }
 
 <section id="tasks">

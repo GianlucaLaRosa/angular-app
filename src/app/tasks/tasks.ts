@@ -28,4 +28,12 @@ export class Tasks {
   onStartAddTask() {
     this.isAddingTask.set(true);
   }
+
+  onCloseAddModal() {
+    this.isAddingTask.set(false);
+  }
+
+  onCreateNewTask(task: TaskElement) {
+    this.tasks.unshift(task);
+  }
 }
