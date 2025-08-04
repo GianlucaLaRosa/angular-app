@@ -4,6 +4,7 @@ import {Header} from './header/header';
 import {User} from './user/user';
 import { Tasks } from './tasks/tasks';
 import { DUMMY_USERS } from './dummy-users';
+import type { UserElement } from './dummy-users'; // Assuming UserElement is defined in dummy-users.ts
 
 @Component({
   selector: 'app-root',
@@ -16,9 +17,9 @@ export class App {
 
   users = DUMMY_USERS;
 
-  selectedId = signal<string>('u1');
+  selectedId = signal<string | undefined>(undefined);
 
-  selectedUser = computed<typeof DUMMY_USERS[number] | undefined>(() => this.users.find(user => user.id === this.selectedId()));
+  selectedUser = computed<UserElement | undefined>(() => this.users.find(user => user.id === this.selectedId()));
 
   onSelectUser(id: string) {
     this.selectedId.set(id);

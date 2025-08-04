@@ -2,9 +2,17 @@
 // import { Component, Input } from "@angular/core";
 // import {Component, input, computed, Output, EventEmitter} from '@angular/core';
 import { Component, input, computed, output } from '@angular/core';
+import { type UserElement } from '../dummy-users';
 import {DUMMY_USERS} from '../dummy-users';
 
-const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
+// type UserElement = {
+//   id: string;
+//   name: string;
+//   avatar: string;
+// }
+
+
+// const randomIndex = Math.floor(Math.random() * DUMMY_USERS.length);
 
 @Component({
   selector: 'app-user',
@@ -20,8 +28,8 @@ export class User {
   // name = input.required<string>();
   // id = input.required<string>();
 
-  user = input.required<typeof DUMMY_USERS[number]>()
-
+  user = input.required<UserElement>();
+  isSelected = input<boolean>(false);
   select = output<string>();
 
   // @Output() select = new EventEmitter();

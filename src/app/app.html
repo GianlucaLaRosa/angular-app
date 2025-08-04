@@ -4,19 +4,19 @@
 <!--    <li>-->
 <!--      <app-user [avatar]="users[0].avatar" [name]="users[0].name" [id]="users[0].id" (select)="onSelectUser($event)" />-->
 <!--    </li>-->
-    <li>
-      <app-user [user]="users[0]" (select)="onSelectUser($event)" />
-    </li>
-    <li>
-      <app-user [user]="users[1]" (select)="onSelectUser($event)" />
-    </li>
-    <li>
-      <app-user [user]="users[2]" (select)="onSelectUser($event)" />
-    </li>
-    <li>
-      <app-user [user]="users[3]" (select)="onSelectUser($event)" />
-    </li>
+<!--    <li>-->
+<!--      <app-user [user]="users[0]" (select)="onSelectUser($event)" />-->
+<!--    </li>-->
+    @for (user of users; track user.id) {
+      <li>
+        <app-user [user]="user" (select)="onSelectUser($event)" [isSelected]="selectedUser()?.id === user.id"/>
+      </li>
+    }
   </ul>
-  <app-tasks [name]="selectedUser()?.name ?? ''"/>
+  @if (selectedUser()) {
+    <app-tasks [name]="selectedUser()?.name" [selectedUserId]="selectedUser()!.id"/>
+  } @else {
+    <p id="fallback">Select a user to see the tasks!</p>
+  }
 </main>
 <router-outlet />
