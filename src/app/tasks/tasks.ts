@@ -1,7 +1,8 @@
 import {Component, input, signal} from '@angular/core';
 import { Task } from './task/task';
-import {DUMMY_TASKS, TaskElement} from '../dummy-tasks';
+import {TaskElement} from '../dummy-tasks';
 import {NewTask} from './new-task/new-task';
+import {TasksService} from './tasks.service';
 
 @Component({
   selector: 'app-tasks',
@@ -14,15 +15,15 @@ export class Tasks {
   selectedUserId = input.required<string | undefined>();
 
   isAddingTask = signal<boolean>(false);
-  tasks = DUMMY_TASKS;
 
+  constructor(private tasksService: TasksService) {}
 
   getUserTasks() {
-    return this.tasks.filter(task => task.userId === this.selectedUserId());
+    return this.tasksService.getUserTasks(this.selectedUserId()!);
   }
 
   onCompleteTask(id:string) {
-    this.tasks = this.tasks.filter(task => task.id !== id);
+    this.tasksService.onCompleteTask(id);
   }
 
   onStartAddTask() {
@@ -31,9 +32,5 @@ export class Tasks {
 
   onCloseAddModal() {
     this.isAddingTask.set(false);
-  }
-
-  onCreateNewTask(task: TaskElement) {
-    this.tasks.unshift(task);
   }
 }

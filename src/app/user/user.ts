@@ -3,6 +3,7 @@
 // import {Component, input, computed, Output, EventEmitter} from '@angular/core';
 import { Component, input, computed, output } from '@angular/core';
 import { type UserElement } from '../dummy-users';
+import { Card } from '../shared/card/card';
 import {DUMMY_USERS} from '../dummy-users';
 
 // type UserElement = {
@@ -16,7 +17,7 @@ import {DUMMY_USERS} from '../dummy-users';
 
 @Component({
   selector: 'app-user',
-  imports: [],
+  imports: [Card],
   templateUrl: './user.html',
   styleUrl: './user.scss'
 })

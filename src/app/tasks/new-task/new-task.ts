@@ -1,6 +1,7 @@
-import {Component, input, output, signal} from '@angular/core';
+import {Component, input, output, signal, inject} from '@angular/core';
 import {FormsModule} from '@angular/forms';
 import {TaskElement} from '../../dummy-tasks';
+import {TasksService} from '../tasks.service';
 
 @Component({
   selector: 'app-new-task',
@@ -23,7 +24,8 @@ export class NewTask {
   enteredSummary = signal<string>("");
   enteredDate = signal<string>("");
 
-  onCreateNewTask = output<TaskElement>();
+  private readonly tasksService = inject(TasksService);
+
   createTask() {
     const newTask: TaskElement = {
       id: new Date().getTime().toString(),
@@ -32,7 +34,7 @@ export class NewTask {
       dueDate: this.enteredDate(),
       userId: this.userId()
     };
-    this.onCreateNewTask.emit(newTask);
+    this.tasksService.addTask(newTask);
     this.closeModal();
   }
 }
